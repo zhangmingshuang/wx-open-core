@@ -8,6 +8,18 @@
  * 针对org.apache.commons.codec.binary.Base64， 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本） 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  *
  * 针对org.apache.commons.codec.binary.Base64， 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本） 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ *
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ *
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ *
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  */
 
 // ------------------------------------------------------------------------
@@ -21,13 +33,12 @@ package com.qq.weixin.mp.aes;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).
@@ -47,7 +58,6 @@ import org.apache.commons.codec.binary.Base64;
 public class WXBizMsgCrypt {
 
     static Charset CHARSET = Charset.forName("utf-8");
-    Base64 base64 = new Base64();
     byte[] aesKey;
     String token;
     String appId;
@@ -67,7 +77,7 @@ public class WXBizMsgCrypt {
 
         this.token = token;
         this.appId = appId;
-        aesKey = Base64.decodeBase64(encodingAesKey + "=");
+        aesKey = Base64.getDecoder().decode(encodingAesKey + "=");
     }
 
     // 生成4个字节的网络字节序
@@ -141,7 +151,7 @@ public class WXBizMsgCrypt {
             byte[] encrypted = cipher.doFinal(unencrypted);
 
             // 使用BASE64对加密后的字符串进行编码
-            String base64Encrypted = base64.encodeToString(encrypted);
+            String base64Encrypted = Base64.getEncoder().encodeToString(encrypted);
 
             return base64Encrypted;
         } catch (Exception e) {
@@ -167,7 +177,7 @@ public class WXBizMsgCrypt {
             cipher.init(Cipher.DECRYPT_MODE, key_spec, iv);
 
             // 使用BASE64对密文进行解码
-            byte[] encrypted = Base64.decodeBase64(text);
+            byte[] encrypted = Base64.getDecoder().decode(text);
 
             // 解密
             original = cipher.doFinal(encrypted);

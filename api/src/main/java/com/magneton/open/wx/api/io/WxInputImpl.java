@@ -10,7 +10,6 @@ import com.magneton.open.wx.api.handler.MsgConditions;
 import com.magneton.open.wx.api.handler.MsgHandler;
 import com.magneton.open.wx.api.handler.MsgHandlerWrapper;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
-import com.sgcc.wx.msg.dispatcher.api.handler.*;
 import com.magneton.open.wx.api.parser.WxXmlParser;
 
 import java.io.ByteArrayOutputStream;

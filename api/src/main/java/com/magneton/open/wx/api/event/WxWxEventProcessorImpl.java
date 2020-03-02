@@ -1,7 +1,6 @@
 package com.magneton.open.wx.api.event;
 
-import com.magneton.service.core.util.StringUtil;
-
+import com.magneton.open.wx.api.util.StringUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

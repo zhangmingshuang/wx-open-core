@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.entity.msg;
 
-import com.magneton.service.core.util.StringUtil;
+import com.magneton.open.wx.api.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
