@@ -3,7 +3,7 @@ package com.magneton.open.wx.api.io;
 import com.magneton.open.wx.api.core.WxMsgConverException;
 import com.magneton.open.wx.api.processor.WxMsgProcessor;
 import com.magneton.open.wx.api.entity.msg.WxMsg;
-import com.magneton.open.wx.api.handler.HandleMsg;
+import com.magneton.open.wx.api.handler.MsgParser;
 import com.magneton.open.wx.api.handler.HandlerException;
 import com.magneton.open.wx.api.handler.MsgCondition;
 import com.magneton.open.wx.api.handler.MsgConditions;
@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -52,6 +54,8 @@ import java.util.Map;
  * @since 2019/9/5
  */
 public class WxInputImpl implements WxInput {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WxInputImpl.class);
 
     private final List<MsgHandlerWrapper> wrappers = new ArrayList<>();
     private WxMsgProcessor dispatcher;
@@ -112,16 +116,18 @@ public class WxInputImpl implements WxInput {
         if (params == null || params.isEmpty()) {
             return null;
         }
-        System.out.println("---------------------------");
-        params.forEach((k, v) -> {
-            System.out.println(k + "   =   " + v);
-        });
-        System.out.println("---------------------------");
-        MsgHandler suitable = this.getSuitable(params);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("---------------------------");
+            params.forEach((k, v) -> {
+                LOGGER.debug(k + "   =   " + v);
+            });
+            LOGGER.debug("---------------------------");
+        }
+        MsgHandlerWrapper suitable = this.getSuitable(params);
         if (suitable == null) {
             return null;
         }
-        return suitable.handle(new HandleMsg(params));
+        return suitable.handle(params);
     }
 
 
@@ -145,7 +151,7 @@ public class WxInputImpl implements WxInput {
         wrappers.sort((a, b) -> b.getLv() - a.getLv());
     }
 
-    private MsgHandler getSuitable(Map<String, String> params) {
+    private MsgHandlerWrapper getSuitable(Map<String, String> params) {
         for (int i = 0, s = wrappers.size(); i < s; i++) {
             MsgHandlerWrapper handlerWrapper = wrappers.get(i);
             if (!handlerWrapper.isProcessable(params)) {

@@ -6,6 +6,10 @@ package com.magneton.open.wx.api.handler;
  */
 public class HandlerException extends RuntimeException {
 
+    public HandlerException(String msg) {
+        super(msg);
+    }
+
     public HandlerException(Class a, Class b) {
         super(a + "," + b + "处理逻辑冲突");
     }

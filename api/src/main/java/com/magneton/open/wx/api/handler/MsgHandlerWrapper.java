@@ -1,19 +1,22 @@
 package com.magneton.open.wx.api.handler;
 
 import com.magneton.open.wx.api.entity.msg.WxMsg;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Map;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
  * @author zhangmingshuang
  * @since 2019/9/4
  */
 @Getter
-public class MsgHandlerWrapper implements MsgHandler {
+public class MsgHandlerWrapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MsgHandlerWrapper.class);
     /**
@@ -22,6 +25,7 @@ public class MsgHandlerWrapper implements MsgHandler {
     private int lv;
     private String[] holdRule;
     private MsgHandler handler;
+    private Class<? extends Type> genericHandlerClass;//handler的泛型类型
 
     public MsgHandlerWrapper(MsgHandler h) {
         this.handler = h;
@@ -43,6 +47,12 @@ public class MsgHandlerWrapper implements MsgHandler {
     }
 
     public void parse() {
+        Type[] genericInterfaces = handler.getClass().getGenericInterfaces();
+        if (genericInterfaces == null || genericInterfaces.length != 1) {
+            throw new HandlerException(handler.getClass() + "没有泛型参数");
+        }
+        Type[] actualTypeArguments = ((ParameterizedTypeImpl) genericInterfaces[0]).getActualTypeArguments();
+        genericHandlerClass = (Class) actualTypeArguments[0];
         MsgCondition msgCondition = handler.getClass().getAnnotation(MsgCondition.class);
         if (msgCondition != null) {
             String key = msgCondition.key();
@@ -75,10 +85,10 @@ public class MsgHandlerWrapper implements MsgHandler {
     }
 
 
-    @Override
-    public WxMsg handle(HandleMsg params) {
+    public WxMsg handle(Map<String, String> params) {
         try {
-            return this.handler.handle(params);
+            MsgParser msgParser = (MsgParser) genericHandlerClass.newInstance();
+            return this.handler.handle((MsgParser) msgParser.parse(params));
         } catch (Throwable e) {
             LOGGER.error("调用" + this.handler.getClass() + "时异常", e);
         }

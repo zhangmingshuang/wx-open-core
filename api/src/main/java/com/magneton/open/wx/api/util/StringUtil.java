@@ -44,4 +44,24 @@ public class StringUtil {
         return cs == null || cs.length() == 0;
     }
 
+    public static long getLongVal(String val) {
+        if (isEmpty(val)) {
+            return 0L;
+        }
+        return Long.parseLong(val);
+    }
+
+    public static double getDoubleVal(String val) {
+        if (isEmpty(val)) {
+            return 0D;
+        }
+        return Double.parseDouble(val);
+    }
+
+    public static int getIntVal(String val) {
+        if (isEmpty(val)) {
+            return 0;
+        }
+        return Integer.parseInt(val);
+    }
 }

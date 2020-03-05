@@ -10,11 +10,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author zhangmingshuang
  * @since 2019/9/6
  */
-public class WxWxEventProcessorImpl<T> implements WxEventProcessor<T> {
+public class EventProcessorImpl<T> implements EventProcessor<T> {
 
     private final Map<String, Map<String, EventHandler<T>>> eventMap = new HashMap<>();
 
     public void setClickEvents(List<EventHandler> events) {
+        if (events == null || events.isEmpty()) {
+            return;
+        }
         synchronized (eventMap) {
             for (EventHandler event : events) {
                 EventCondition eventCondition
@@ -32,7 +35,7 @@ public class WxWxEventProcessorImpl<T> implements WxEventProcessor<T> {
                 EventHandler exist = eventHandlers.put(eventKey, event);
                 if (exist != null) {
                     throw new RuntimeException("重复的事件配置，"
-                        + exist.getClass() + ", " + event.getClass());
+                                                   + exist.getClass() + ", " + event.getClass());
                 }
                 eventMap.put(eventType, eventHandlers);
             }

@@ -1,12 +1,13 @@
 package com.magneton.open.wx.api.event;
 
-import com.magneton.open.wx.api.event.EventHandler;
 
 /**
+ * 内部事件处理器
+ *
  * @author zhangmingshuang
  * @since 2019/9/6
  */
-public interface WxEventProcessor<T> {
+public interface EventProcessor<T> {
 
     EventHandler<T> getEvent(String event, String eventKey);
 }

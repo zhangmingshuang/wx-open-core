@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.invoker;
 
-import com.magneton.open.wx.api.core.LifeCycle;
+import com.magneton.open.wx.api.core.InvokerLifeCycle;
 import com.magneton.open.wx.api.core.WeixinEnvironment;
 import java.util.List;
 
@@ -8,13 +8,13 @@ import java.util.List;
  * @author zhangmingshuang
  * @since 2020/3/2
  */
-public abstract class AbstractWeixinWeixinInvoker implements LifeCycle, WeixinEnvironment {
+public abstract class AbstractWeixinWeixinInvoker implements InvokerLifeCycle, WeixinEnvironment {
 
-    private List<LifeCycle> lifeCycles;
+    private List<InvokerLifeCycle> invokerLifeCycles;
     private List<Invoker> invokers;
 
-    public AbstractWeixinWeixinInvoker(List<LifeCycle> lifeCycles) {
-        this.lifeCycles = lifeCycles;
+    public AbstractWeixinWeixinInvoker(List<InvokerLifeCycle> invokerLifeCycles) {
+        this.invokerLifeCycles = invokerLifeCycles;
         this.init();
     }
 
@@ -33,25 +33,25 @@ public abstract class AbstractWeixinWeixinInvoker implements LifeCycle, WeixinEn
 
     @Override
     public void beforeStart(WeixinEnvironment environment) {
-        for (int i = 0, l = lifeCycles.size(); i < l; i++) {
-            LifeCycle lifeCycle = lifeCycles.get(i);
-            lifeCycle.beforeStart(environment);
+        for (int i = 0, l = invokerLifeCycles.size(); i < l; i++) {
+            InvokerLifeCycle invokerLifeCycle = invokerLifeCycles.get(i);
+            invokerLifeCycle.beforeStart(environment);
         }
     }
 
     @Override
     public void onStarting(Invoker invoker) {
-        for (int i = 0, l = lifeCycles.size(); i < l; i++) {
-            LifeCycle lifeCycle = lifeCycles.get(i);
-            lifeCycle.onStarting(invoker);
+        for (int i = 0, l = invokerLifeCycles.size(); i < l; i++) {
+            InvokerLifeCycle invokerLifeCycle = invokerLifeCycles.get(i);
+            invokerLifeCycle.onStarting(invoker);
         }
     }
 
     @Override
     public void afterStart() {
-        for (int i = 0, l = lifeCycles.size(); i < l; i++) {
-            LifeCycle lifeCycle = lifeCycles.get(i);
-            lifeCycle.afterStart();
+        for (int i = 0, l = invokerLifeCycles.size(); i < l; i++) {
+            InvokerLifeCycle invokerLifeCycle = invokerLifeCycles.get(i);
+            invokerLifeCycle.afterStart();
         }
     }
 }

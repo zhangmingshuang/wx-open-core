@@ -1,0 +1,35 @@
+package com.magneton.open.wx.api.open.messagemanagement.msg;
+
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * 小视频消息
+ *
+ * @author zhangmingshuang
+ * @since 2020/3/5
+ */
+@Setter
+@Getter
+@ToString
+public class ShortVideoMsgRequest extends AbstractRequestMsg {
+
+    /**
+     * 视频消息媒体id，可以调用获取临时素材接口拉取数据。
+     */
+    private String mediaId;
+    /**
+     * 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+     */
+    private String thumbMediaId;
+
+    @Override
+    public ShortVideoMsgRequest parse(Map<String, String> params) {
+        super.parse(params);
+        this.mediaId = params.get("MediaId");
+        this.thumbMediaId = params.get("ThumbMediaId");
+        return this;
+    }
+}

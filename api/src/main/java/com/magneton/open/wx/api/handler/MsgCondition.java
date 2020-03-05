@@ -21,6 +21,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface MsgCondition {
+
     String key();
 
     String eq();

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 微信环境，用来提供微个的各种接口调用入口
+ *
  * @author zhangmingshuang
  * @since 2020/3/2
  */

@@ -7,5 +7,6 @@ import com.magneton.open.wx.api.entity.msg.WxMsg;
  * @since 2019/9/6
  */
 public interface EventHandler<T> {
+
     WxMsg handle(T t);
 }

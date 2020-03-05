@@ -1,7 +1,7 @@
 package com.magneton.open.wx.api.invoker.http;
 
 import com.magneton.open.wx.api.ApiConfig;
-import com.magneton.open.wx.api.core.LifeCycle;
+import com.magneton.open.wx.api.core.InvokerLifeCycle;
 import com.magneton.open.wx.api.invoker.AbstractWeixinWeixinInvoker;
 import com.magneton.open.wx.api.invoker.AccessTokenInvoker;
 import com.magneton.open.wx.api.invoker.CustomMessageInvoker;
@@ -17,8 +17,8 @@ public class HttpWeixinWeixinInvoker extends AbstractWeixinWeixinInvoker {
 
     private ApiConfig apiConfig;
 
-    public HttpWeixinWeixinInvoker(List<LifeCycle> lifeCycles, ApiConfig apiConfig) {
-        super(lifeCycles);
+    public HttpWeixinWeixinInvoker(List<InvokerLifeCycle> invokerLifeCycles, ApiConfig apiConfig) {
+        super(invokerLifeCycles);
         this.apiConfig = apiConfig;
     }
 
