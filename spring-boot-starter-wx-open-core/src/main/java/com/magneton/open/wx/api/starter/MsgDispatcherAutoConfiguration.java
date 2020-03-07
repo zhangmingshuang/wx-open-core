@@ -4,13 +4,16 @@ import com.magneton.open.wx.api.core.InvokerLifeCycle;
 import com.magneton.open.wx.api.event.EventHandler;
 import com.magneton.open.wx.api.event.EventProcessor;
 import com.magneton.open.wx.api.event.EventProcessorImpl;
-import com.magneton.open.wx.api.handler.MsgHandler;
+import com.magneton.open.wx.api.msgprocessor.WeInput;
+import com.magneton.open.wx.api.msgprocessor.WeOutput;
+import com.magneton.open.wx.api.msgprocessor.handler.WeMsgHandler;
 import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.invoker.http.HttpWeInvoker;
-import com.magneton.open.wx.api.io.WeInputImpl;
-import com.magneton.open.wx.api.io.WeOutputImpl;
-import com.magneton.open.wx.api.processor.WeMsgProcessor;
-import com.magneton.open.wx.api.processor.WeMsgProcessorImpl;
+import com.magneton.open.wx.api.msgprocessor.WeInputImpl;
+import com.magneton.open.wx.api.msgprocessor.WeMsgCrypt;
+import com.magneton.open.wx.api.msgprocessor.WeOutputImpl;
+import com.magneton.open.wx.api.msgprocessor.WeMsgProcessor;
+import com.magneton.open.wx.api.msgprocessor.WeMsgProcessorImpl;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +40,25 @@ public class MsgDispatcherAutoConfiguration {
      * @return WeixinEnvironment
      */
     @Bean
-    public WeEnvironment weixinEnvironment(
+    public WeEnvironment weEnvironment(
+        @Autowired DispatcherWxProperties wxProperties,
         @Autowired(required = false) List<InvokerLifeCycle> invokerLifeCycles,
         @Autowired DispatcherWxProperties dispatcherWxProperties) {
-        return new HttpWeInvoker(invokerLifeCycles, dispatcherWxProperties);
+
+        WeMsgCrypt weMsgCrypt = null;
+        if (wxProperties.isLaws()) {
+            try {
+                WXBizMsgCrypt wxBizMsgCrypt = new WXBizMsgCrypt(wxProperties.getToken(),
+                                                                wxProperties.getEncodingAESKey(),
+                                                                wxProperties.getAppId());
+                weMsgCrypt = new WeMsgCryptWrapper(wxBizMsgCrypt);
+            } catch (AesException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return new HttpWeInvoker(invokerLifeCycles, dispatcherWxProperties, weMsgCrypt);
+
     }
 
     @Bean
@@ -51,35 +69,16 @@ public class MsgDispatcherAutoConfiguration {
         return processor;
     }
 
-//    @Bean
-//    public WxInvokeProcessor invokeProcessor(AccessTokenInvoker accessTokenInvoker,
-//                                             MenuInvoker menuInvoker,
-//                                             UserInfoInvoker userInfoInvoker) {
-//        return WxInvokeProcessorImpl.builder()
-//                                    .accessTokenInvoker(accessTokenInvoker)
-//                                    .menuInvoker(menuInvoker)
-//                                    .userInfoInvoker(userInfoInvoker)
-//                                    .build();
-//    }
-
     @Bean
-    public WeMsgProcessor msgProcessor(List<MsgHandler> handlers,
-                                       DispatcherWxProperties wxProperties) {
-        WXBizMsgCrypt wxBizMsgCrypt = null;
-        if (wxProperties.isLaws()) {
-            try {
-                wxBizMsgCrypt = new WXBizMsgCrypt(wxProperties.getToken(),
-                                                  wxProperties.getEncodingAESKey(),
-                                                  wxProperties.getAppId());
-            } catch (AesException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public WeMsgProcessor msgProcessor(@Autowired List<WeMsgHandler> handlers,
+                                       @Autowired DispatcherWxProperties wxProperties,
+                                       @Autowired WeEnvironment weEnvironment) {
+        WeInput weInput = new WeInputImpl(handlers);
+        WeOutput weOutput = new WeOutputImpl(weEnvironment);
+
         return WeMsgProcessorImpl.builder()
-                                   .config(wxProperties)
-                                   .wxBizMsgCrypt(wxBizMsgCrypt)
-                                   .input(new WeInputImpl(handlers))
-                                   .output(new WeOutputImpl())
-                                   .build();
+                                 .input(weInput)
+                                 .output(weOutput)
+                                 .build();
     }
 }

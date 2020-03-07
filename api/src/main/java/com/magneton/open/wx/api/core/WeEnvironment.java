@@ -1,15 +1,12 @@
 package com.magneton.open.wx.api.core;
 
 import com.magneton.open.wx.api.WeApiConfig;
-import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
-import com.magneton.open.wx.api.open.messagemanagement.CustomMessageInvoker;
-import com.magneton.open.wx.api.invoker.Invoker;
-import com.magneton.open.wx.api.open.custommenus.CustomMenuInvoker;
-import com.magneton.open.wx.api.invoker.UserInfoInvoker;
-import com.magneton.open.wx.api.open.accountmanagement.AccountManagementInvoker;
+import com.magneton.open.wx.api.msgprocessor.WeMsgCrypt;
+import com.magneton.open.wx.api.open.basic.AccessToken;
+import com.magneton.open.wx.api.open.custommenus.CustomMenu;
+import com.magneton.open.wx.api.open.usermanagement.UserInformation;
+import com.magneton.open.wx.api.open.accountmanagement.AccountManagement;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 微信环境，用来提供微个的各种接口调用入口
@@ -19,25 +16,15 @@ import java.util.List;
  */
 public interface WeEnvironment {
 
-    WeApiConfig getWeApiConfig();
+    WeApiConfig apiConfig();
 
-    AccessTokenInvoker getAccessTokenInvoker();
+    AccessToken accessToken();
 
-    CustomMessageInvoker getCustomMessageInvoker();
+    CustomMenu customMenu();
 
-    CustomMenuInvoker getMenuInvoker();
+    UserInformation userInfomation();
 
-    UserInfoInvoker getUserInvoker();
+    AccountManagement accountManagment();
 
-    AccountManagementInvoker getAccountManagementInvoker();
-
-    default List<Invoker> getInvokers() {
-        List<Invoker> list = new ArrayList<>(4);
-        list.add(getAccessTokenInvoker());
-        list.add(getCustomMessageInvoker());
-        list.add(getMenuInvoker());
-        list.add(getUserInvoker());
-        list.add(getAccessTokenInvoker());
-        return list;
-    }
+    WeMsgCrypt weMsgCrypt();
 }

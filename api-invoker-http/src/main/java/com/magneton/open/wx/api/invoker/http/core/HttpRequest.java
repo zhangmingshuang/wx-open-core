@@ -2,7 +2,7 @@ package com.magneton.open.wx.api.invoker.http.core;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.magneton.open.wx.api.constant.WxResponseCode;
+import com.magneton.open.wx.api.constant.WeResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +49,7 @@ public class HttpRequest {
         Integer error = object.getInteger("errcode");
         if (error != null && error.intValue() != 0) {
             //请求失败
-            String errorMsg = WxResponseCode.getError(error.intValue());
+            String errorMsg = WeResponseCode.getError(error.intValue());
             LOGGER.error("[wx]请求失败。code:[{}], msg:[{}], response:[{}]",
                          error, errorMsg, response);
             object.setHasErrorCode(true);

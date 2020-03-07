@@ -48,15 +48,15 @@ public class VideoMsgReply extends AbstractMsg {
     @Override
     public String getData() {
         return "<xml>" +
-                "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
-                "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
-                "<CreateTime>" + getCreateTime() + "</CreateTime>" +
-                "<MsgType><![CDATA[video]]></MsgType>" +
-                "<Video>" +
-                "<MediaId><![CDATA[" + getMediaId() + "]]></MediaId>" +
-                "<Title><![CDATA[" + getTitle() + "]]></Title>" +
-                "<Description><![CDATA[" + getDescription() + "]]></Description>" +
-                "</Video>" +
-                "</xml>";
+            "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
+            "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
+            "<CreateTime>" + getCreateTime() + "</CreateTime>" +
+            "<MsgType><![CDATA[video]]></MsgType>" +
+            "<Video>" +
+            "<MediaId><![CDATA[" + getMediaId() + "]]></MediaId>" +
+            "<Title><![CDATA[" + getTitle() + "]]></Title>" +
+            "<Description><![CDATA[" + getDescription() + "]]></Description>" +
+            "</Video>" +
+            "</xml>";
     }
 }

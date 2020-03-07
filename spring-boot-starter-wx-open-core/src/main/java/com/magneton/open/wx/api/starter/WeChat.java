@@ -2,7 +2,7 @@ package com.magneton.open.wx.api.starter;
 
 import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.event.EventProcessor;
-import com.magneton.open.wx.api.processor.WeMsgProcessor;
+import com.magneton.open.wx.api.msgprocessor.WeMsgProcessor;
 
 /**
  * @author zhangmingshuang
@@ -10,7 +10,7 @@ import com.magneton.open.wx.api.processor.WeMsgProcessor;
  */
 public interface WeChat extends WeEnvironment {
 
-    WeMsgProcessor getWeMsgProcessor();
+    WeMsgProcessor msgProcessor();
 
-    EventProcessor getEventProcessor();
+    EventProcessor eventProcessor();
 }

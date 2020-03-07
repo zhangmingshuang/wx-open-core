@@ -1,5 +1,6 @@
 package com.magneton.open.wx.api.open.messagemanagement.msg;
 
+import com.magneton.open.wx.api.core.MsgReply;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,7 +44,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MusicMsgReply extends AbstractMsg implements MsgReply {
+public class MusicMsgReply extends AbstractMsg {
 
     private String title;
     private String description;
@@ -54,17 +55,17 @@ public class MusicMsgReply extends AbstractMsg implements MsgReply {
     @Override
     public String getData() {
         return "<xml>" +
-                "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
-                "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
-                "<CreateTime>" + getCreateTime() + "</CreateTime>" +
-                "<MsgType><![CDATA[music]]></MsgType>" +
-                "<Music>" +
-                "<Title><![CDATA[" + getTitle() + "]]></Title>" +
-                "<Description><![CDATA[" + getDescription() + "]]></Description>" +
-                "<MusicUrl><![CDATA[" + getMusicUrl() + "]]></MusicUrl>" +
-                "<HQMusicUrl><![CDATA[" + getHqMusicUrl() + "]]></HQMusicUrl>" +
-                "<ThumbMediaId><![CDATA[" + getMediaId() + "]]></ThumbMediaId>" +
-                "</Music>" +
-                "</xml>";
+            "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
+            "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
+            "<CreateTime>" + getCreateTime() + "</CreateTime>" +
+            "<MsgType><![CDATA[music]]></MsgType>" +
+            "<Music>" +
+            "<Title><![CDATA[" + getTitle() + "]]></Title>" +
+            "<Description><![CDATA[" + getDescription() + "]]></Description>" +
+            "<MusicUrl><![CDATA[" + getMusicUrl() + "]]></MusicUrl>" +
+            "<HQMusicUrl><![CDATA[" + getHqMusicUrl() + "]]></HQMusicUrl>" +
+            "<ThumbMediaId><![CDATA[" + getMediaId() + "]]></ThumbMediaId>" +
+            "</Music>" +
+            "</xml>";
     }
 }

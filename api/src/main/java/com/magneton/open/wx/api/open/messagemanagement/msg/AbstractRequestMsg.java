@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.open.messagemanagement.msg;
 
-import com.magneton.open.wx.api.handler.MsgParser;
+import com.magneton.open.wx.api.msgprocessor.handler.WeMsgParser;
 import com.magneton.open.wx.api.open.BasicRequestMsg;
 import com.magneton.open.wx.api.util.StringUtil;
 import java.util.Map;
@@ -16,7 +16,7 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public abstract class AbstractRequestMsg extends BasicRequestMsg
-    implements MsgParser<AbstractRequestMsg> {
+    implements WeMsgParser<AbstractRequestMsg> {
 
     /**
      * 消息id，64位整型

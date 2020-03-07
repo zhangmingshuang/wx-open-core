@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.open.messagemanagement.event;
 
-import com.magneton.open.wx.api.handler.MsgParser;
+import com.magneton.open.wx.api.msgprocessor.handler.WeMsgParser;
 import com.magneton.open.wx.api.open.BasicRequestMsg;
 import java.util.Map;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class AbstractEventRequest extends BasicRequestMsg
-    implements MsgParser<AbstractEventRequest> {
+    implements WeMsgParser<AbstractEventRequest> {
 
     private String event;
 

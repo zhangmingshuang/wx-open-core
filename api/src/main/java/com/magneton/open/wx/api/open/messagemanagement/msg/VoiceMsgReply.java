@@ -36,18 +36,19 @@ import lombok.ToString;
 @Getter
 @ToString
 public class VoiceMsgReply extends AbstractMsg {
+
     private String mediaId;
 
     @Override
     public String getData() {
         return "<xml>" +
-                "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
-                "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
-                "<CreateTime>" + getCreateTime() + "</CreateTime>" +
-                "<MsgType><![CDATA[voice]]></MsgType>" +
-                "<Voice>" +
-                "<MediaId><![CDATA[" + getMediaId() + "]]></MediaId>" +
-                "</Voice>" +
-                "</xml>";
+            "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
+            "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
+            "<CreateTime>" + getCreateTime() + "</CreateTime>" +
+            "<MsgType><![CDATA[voice]]></MsgType>" +
+            "<Voice>" +
+            "<MediaId><![CDATA[" + getMediaId() + "]]></MediaId>" +
+            "</Voice>" +
+            "</xml>";
     }
 }

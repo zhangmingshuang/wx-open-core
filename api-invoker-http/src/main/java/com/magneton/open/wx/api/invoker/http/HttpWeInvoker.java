@@ -2,12 +2,12 @@ package com.magneton.open.wx.api.invoker.http;
 
 import com.magneton.open.wx.api.WeApiConfig;
 import com.magneton.open.wx.api.core.InvokerLifeCycle;
-import com.magneton.open.wx.api.invoker.AbstractWeInvoker;
-import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
-import com.magneton.open.wx.api.open.messagemanagement.CustomMessageInvoker;
-import com.magneton.open.wx.api.open.custommenus.CustomMenuInvoker;
-import com.magneton.open.wx.api.invoker.UserInfoInvoker;
-import com.magneton.open.wx.api.open.accountmanagement.AccountManagementInvoker;
+import com.magneton.open.wx.api.msgprocessor.WeMsgCrypt;
+import com.magneton.open.wx.api.open.AbstractWeInvoker;
+import com.magneton.open.wx.api.open.basic.AccessToken;
+import com.magneton.open.wx.api.open.custommenus.CustomMenu;
+import com.magneton.open.wx.api.open.usermanagement.UserInformation;
+import com.magneton.open.wx.api.open.accountmanagement.AccountManagement;
 
 import java.util.List;
 
@@ -18,44 +18,46 @@ import java.util.List;
 public class HttpWeInvoker extends AbstractWeInvoker {
 
     private WeApiConfig weApiConfig;
-    private AccessTokenInvoker accessTokenInvoker = new HttpAccessTokenInvoker(this);
-    private AccountManagementInvoker accountManagementInvoker;
+    private AccessToken accessToken = new HttpAccessToken(this);
+    private UserInformation userInformation = new HttpUserInformation(this);
+    private AccountManagement accountManagement;
+    private CustomMenu customMenu;
 
-    public HttpWeInvoker(List<InvokerLifeCycle> invokerLifeCycles, WeApiConfig weApiConfig) {
-        super(invokerLifeCycles);
+    public HttpWeInvoker(List<InvokerLifeCycle> invokerLifeCycles,
+                         WeApiConfig weApiConfig,
+                         WeMsgCrypt weMsgCrypt) {
+        super(invokerLifeCycles, weMsgCrypt);
         this.weApiConfig = weApiConfig;
     }
 
     @Override
-    public WeApiConfig getWeApiConfig() {
+    public WeApiConfig apiConfig() {
         return weApiConfig;
     }
 
     @Override
-    public AccessTokenInvoker getAccessTokenInvoker() {
-        return accessTokenInvoker;
+    public AccessToken accessToken() {
+        return accessToken;
     }
 
     @Override
-    public AccountManagementInvoker getAccountManagementInvoker() {
-        if (accountManagementInvoker == null) {
-            accountManagementInvoker = new HttpAccountManagementInvoker(this);
+    public AccountManagement accountManagment() {
+        if (accountManagement == null) {
+            accountManagement = new HttpAccountManagement(this);
         }
-        return accountManagementInvoker;
+        return accountManagement;
     }
 
     @Override
-    public CustomMessageInvoker getCustomMessageInvoker() {
-        return new HttpCustomMessageInvoker(this);
+    public CustomMenu customMenu() {
+        if (customMenu == null) {
+            customMenu = new HttpCustomMenu(this);
+        }
+        return customMenu;
     }
 
     @Override
-    public CustomMenuInvoker getMenuInvoker() {
-        return new HttpCustomMenuInvoker(this);
-    }
-
-    @Override
-    public UserInfoInvoker getUserInvoker() {
-        return new HttpUserInfoInvoker(this);
+    public UserInformation userInfomation() {
+        return userInformation;
     }
 }

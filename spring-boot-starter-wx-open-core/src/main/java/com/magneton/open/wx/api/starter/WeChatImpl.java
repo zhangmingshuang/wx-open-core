@@ -3,11 +3,12 @@ package com.magneton.open.wx.api.starter;
 import com.magneton.open.wx.api.WeApiConfig;
 import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.event.EventProcessor;
-import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
-import com.magneton.open.wx.api.open.messagemanagement.CustomMessageInvoker;
-import com.magneton.open.wx.api.open.custommenus.CustomMenuInvoker;
-import com.magneton.open.wx.api.invoker.UserInfoInvoker;
-import com.magneton.open.wx.api.processor.WeMsgProcessor;
+import com.magneton.open.wx.api.msgprocessor.WeMsgCrypt;
+import com.magneton.open.wx.api.open.accountmanagement.AccountManagement;
+import com.magneton.open.wx.api.open.basic.AccessToken;
+import com.magneton.open.wx.api.open.custommenus.CustomMenu;
+import com.magneton.open.wx.api.open.usermanagement.UserInformation;
+import com.magneton.open.wx.api.msgprocessor.WeMsgProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
@@ -28,37 +29,42 @@ public class WeChatImpl implements WeChat {
     private WeMsgProcessor weMsgProcessor;
 
     @Override
-    public WeMsgProcessor getWeMsgProcessor() {
+    public WeMsgProcessor msgProcessor() {
         return weMsgProcessor;
     }
 
     @Override
-    public EventProcessor getEventProcessor() {
+    public EventProcessor eventProcessor() {
         return eventProcessor;
     }
 
     @Override
-    public WeApiConfig getWeApiConfig() {
-        return weEnvironment.getWeApiConfig();
+    public WeApiConfig apiConfig() {
+        return weEnvironment.apiConfig();
     }
 
     @Override
-    public AccessTokenInvoker getAccessTokenInvoker() {
-        return weEnvironment.getAccessTokenInvoker();
+    public AccessToken accessToken() {
+        return weEnvironment.accessToken();
     }
 
     @Override
-    public CustomMessageInvoker getCustomMessageInvoker() {
-        return weEnvironment.getCustomMessageInvoker();
+    public CustomMenu customMenu() {
+        return weEnvironment.customMenu();
     }
 
     @Override
-    public CustomMenuInvoker getMenuInvoker() {
-        return weEnvironment.getMenuInvoker();
+    public UserInformation userInfomation() {
+        return weEnvironment.userInfomation();
     }
 
     @Override
-    public UserInfoInvoker getUserInvoker() {
-        return weEnvironment.getUserInvoker();
+    public AccountManagement accountManagment() {
+        return weEnvironment.accountManagment();
+    }
+
+    @Override
+    public WeMsgCrypt weMsgCrypt() {
+        return weEnvironment.weMsgCrypt();
     }
 }

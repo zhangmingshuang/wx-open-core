@@ -1,5 +1,6 @@
 package com.magneton.open.wx.api.open.messagemanagement.msg;
 
+import com.magneton.open.wx.api.core.MsgReply;
 import com.magneton.open.wx.api.util.StringUtil;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
@@ -13,14 +14,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public abstract class AbstractMsg {
+public abstract class AbstractMsg implements MsgReply {
 
     private String toUserName;
     private String fromUserName;
     private String createTime;
     private String nonce;
 
-    public abstract String getData();
+    @Override
+    public String getTimeStamp() {
+        return getCreateTime();
+    }
 
     public String getCreateTime() {
         if (StringUtil.isEmpty(createTime)) {
@@ -29,6 +33,7 @@ public abstract class AbstractMsg {
         return createTime;
     }
 
+    @Override
     public String getNonce() {
         if (StringUtil.isEmpty(nonce)) {
             ThreadLocalRandom random = ThreadLocalRandom.current();

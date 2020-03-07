@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.event;
 
-import com.magneton.open.wx.api.entity.msg.WxMsg;
+import com.magneton.open.wx.api.core.MsgReply;
 
 /**
  * @author zhangmingshuang
@@ -8,5 +8,5 @@ import com.magneton.open.wx.api.entity.msg.WxMsg;
  */
 public interface EventHandler<T> {
 
-    WxMsg handle(T t);
+    MsgReply handle(T t);
 }
