@@ -47,7 +47,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class NewsListMsgResponse extends AbstractMsg {
+public class NewsListMsgReply extends AbstractMsg {
 
     private List<Msg> newsWxMsgs;
 
@@ -63,7 +63,7 @@ public class NewsListMsgResponse extends AbstractMsg {
     }
 
     @Override
-    public String toXml() {
+    public String getData() {
         if (newsWxMsgs == null || newsWxMsgs.isEmpty()) {
             throw new IllegalArgumentException("newsWxMsgs is empty.");
         }

@@ -33,12 +33,12 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-public class TextMsgResponse extends AbstractMsg {
+public class TextMsgReply extends AbstractMsg {
 
     private String content;
 
     @Override
-    public String toXml() {
+    public String getData() {
         return "<xml>" +
             "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
             "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +

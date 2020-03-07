@@ -20,7 +20,7 @@ public abstract class AbstractMsg {
     private String createTime;
     private String nonce;
 
-    public abstract String toXml();
+    public abstract String getData();
 
     public String getCreateTime() {
         if (StringUtil.isEmpty(createTime)) {

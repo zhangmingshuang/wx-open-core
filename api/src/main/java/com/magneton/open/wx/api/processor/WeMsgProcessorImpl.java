@@ -1,8 +1,8 @@
 package com.magneton.open.wx.api.processor;
 
-import com.magneton.open.wx.api.ApiConfig;
-import com.magneton.open.wx.api.io.WxInput;
-import com.magneton.open.wx.api.io.WxOutput;
+import com.magneton.open.wx.api.WeApiConfig;
+import com.magneton.open.wx.api.io.WeInput;
+import com.magneton.open.wx.api.io.WeOutput;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import com.magneton.open.wx.api.handler.MsgCondition;
 import com.magneton.open.wx.api.handler.MsgConditions;
@@ -42,19 +42,19 @@ import lombok.Getter;
  * @since 2019/9/4
  */
 @Getter
-public class WxWxMsgProcessorImpl implements WxMsgProcessor {
+public class WeMsgProcessorImpl implements WeMsgProcessor {
 
-    private WxInput input;
-    private WxOutput output;
+    private WeInput input;
+    private WeOutput output;
     private WXBizMsgCrypt wxBizMsgCrypt;
-    private ApiConfig apiConfig;
+    private WeApiConfig weApiConfig;
 
-    private WxWxMsgProcessorImpl(WxInput input,
-                                 WxOutput output,
-                                 WXBizMsgCrypt wxBizMsgCrypt,
-                                 ApiConfig apiConfig) {
+    private WeMsgProcessorImpl(WeInput input,
+                               WeOutput output,
+                               WXBizMsgCrypt wxBizMsgCrypt,
+                               WeApiConfig weApiConfig) {
         this.wxBizMsgCrypt = wxBizMsgCrypt;
-        this.apiConfig = apiConfig;
+        this.weApiConfig = weApiConfig;
         this.input = input;
         this.output = output;
         this.input.afterDispatcherSet(this);
@@ -62,17 +62,17 @@ public class WxWxMsgProcessorImpl implements WxMsgProcessor {
     }
 
     @Override
-    public ApiConfig apiConfig() {
-        return apiConfig;
+    public WeApiConfig apiConfig() {
+        return weApiConfig;
     }
 
     @Override
-    public WxInput input() {
+    public WeInput input() {
         return input;
     }
 
     @Override
-    public WxOutput output() {
+    public WeOutput output() {
         return output;
     }
 
@@ -87,13 +87,13 @@ public class WxWxMsgProcessorImpl implements WxMsgProcessor {
 
     public static class Builder {
 
-        private WxInput input;
-        private WxOutput output;
+        private WeInput input;
+        private WeOutput output;
         private WXBizMsgCrypt wxBizMsgCrypt;
-        private ApiConfig apiConfig;
+        private WeApiConfig weApiConfig;
 
-        public WxWxMsgProcessorImpl build() {
-            return new WxWxMsgProcessorImpl(input, output, wxBizMsgCrypt, apiConfig);
+        public WeMsgProcessorImpl build() {
+            return new WeMsgProcessorImpl(input, output, wxBizMsgCrypt, weApiConfig);
         }
 
         public Builder wxBizMsgCrypt(WXBizMsgCrypt wxBizMsgCrypt) {
@@ -101,18 +101,18 @@ public class WxWxMsgProcessorImpl implements WxMsgProcessor {
             return this;
         }
 
-        public Builder input(WxInput input) {
+        public Builder input(WeInput input) {
             this.input = input;
             return this;
         }
 
-        public Builder output(WxOutput output) {
+        public Builder output(WeOutput output) {
             this.output = output;
             return this;
         }
 
-        public Builder config(ApiConfig apiConfig) {
-            this.apiConfig = apiConfig;
+        public Builder config(WeApiConfig weApiConfig) {
+            this.weApiConfig = weApiConfig;
             return this;
         }
     }

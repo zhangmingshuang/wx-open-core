@@ -1,4 +1,4 @@
-package com.magneton.open.wx.api.entity.msg;
+package com.magneton.open.wx.api.open.basic;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class AccessTicket {
+public class AccessTicketResponse {
 
     /**
      * 公众号的唯一标识

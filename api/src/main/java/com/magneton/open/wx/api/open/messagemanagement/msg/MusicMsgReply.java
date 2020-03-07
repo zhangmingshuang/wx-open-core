@@ -43,7 +43,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MusicMsgResponse extends AbstractMsg {
+public class MusicMsgReply extends AbstractMsg implements MsgReply {
 
     private String title;
     private String description;
@@ -52,19 +52,19 @@ public class MusicMsgResponse extends AbstractMsg {
     private String mediaId;
 
     @Override
-    public String toXml() {
+    public String getData() {
         return "<xml>" +
-            "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
-            "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
-            "<CreateTime>" + getCreateTime() + "</CreateTime>" +
-            "<MsgType><![CDATA[music]]></MsgType>" +
-            "<Music>" +
-            "<Title><![CDATA[" + getTitle() + "]]></Title>" +
-            "<Description><![CDATA[" + getDescription() + "]]></Description>" +
-            "<MusicUrl><![CDATA[" + getMusicUrl() + "]]></MusicUrl>" +
-            "<HQMusicUrl><![CDATA[" + getHqMusicUrl() + "]]></HQMusicUrl>" +
-            "<ThumbMediaId><![CDATA[" + getMediaId() + "]]></ThumbMediaId>" +
-            "</Music>" +
-            "</xml>";
+                "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
+                "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +
+                "<CreateTime>" + getCreateTime() + "</CreateTime>" +
+                "<MsgType><![CDATA[music]]></MsgType>" +
+                "<Music>" +
+                "<Title><![CDATA[" + getTitle() + "]]></Title>" +
+                "<Description><![CDATA[" + getDescription() + "]]></Description>" +
+                "<MusicUrl><![CDATA[" + getMusicUrl() + "]]></MusicUrl>" +
+                "<HQMusicUrl><![CDATA[" + getHqMusicUrl() + "]]></HQMusicUrl>" +
+                "<ThumbMediaId><![CDATA[" + getMediaId() + "]]></ThumbMediaId>" +
+                "</Music>" +
+                "</xml>";
     }
 }

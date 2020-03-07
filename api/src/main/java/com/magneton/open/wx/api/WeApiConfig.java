@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class ApiConfig {
+public class WeApiConfig {
 
     private String token;
 

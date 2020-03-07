@@ -1,8 +1,8 @@
 package com.magneton.open.wx.api.invoker.http;
 
-import com.magneton.open.wx.api.entity.custom.CustomMsg;
-import com.magneton.open.wx.api.invoker.CustomMessageInvoker;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.open.messagemanagement.msg.MsgReply;
+import com.magneton.open.wx.api.open.messagemanagement.CustomMessageInvoker;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.invoker.http.core.HttpRequest;
 import com.magneton.open.wx.api.invoker.http.core.HttpResponse;
 import com.magneton.open.wx.api.util.StringUtil;
@@ -38,22 +38,20 @@ import org.slf4j.LoggerFactory;
 public class HttpCustomMessageInvoker extends AbstractorHttpInvoker
     implements CustomMessageInvoker {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomMessageInvoker.class);
-
     private static final String URL_SEND = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={}";
 
-    public HttpCustomMessageInvoker(WeixinEnvironment environment) {
+    public HttpCustomMessageInvoker(WeEnvironment environment) {
         super(environment);
     }
 
     @Override
-    public boolean send(CustomMsg customMsg) {
+    public boolean send(MsgReply msgReply) {
 
         String accessToken = getEnvironment().getAccessTokenInvoker().getAccessToken();
 
         String url = StringUtil.format(URL_SEND, accessToken);
 
-        HttpResponse httpResponse = HttpRequest.doRequest(url, customMsg.toJSON());
+        HttpResponse httpResponse = HttpRequest.doRequest(url, msgReply.toJSON());
 
         return httpResponse.isSuccess();
     }

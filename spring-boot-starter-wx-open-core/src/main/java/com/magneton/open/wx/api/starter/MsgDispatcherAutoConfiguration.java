@@ -5,12 +5,12 @@ import com.magneton.open.wx.api.event.EventHandler;
 import com.magneton.open.wx.api.event.EventProcessor;
 import com.magneton.open.wx.api.event.EventProcessorImpl;
 import com.magneton.open.wx.api.handler.MsgHandler;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
-import com.magneton.open.wx.api.invoker.http.HttpWeixinWeixinInvoker;
-import com.magneton.open.wx.api.io.WxInputImpl;
-import com.magneton.open.wx.api.io.WxOutputImpl;
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
-import com.magneton.open.wx.api.processor.WxWxMsgProcessorImpl;
+import com.magneton.open.wx.api.core.WeEnvironment;
+import com.magneton.open.wx.api.invoker.http.HttpWeInvoker;
+import com.magneton.open.wx.api.io.WeInputImpl;
+import com.magneton.open.wx.api.io.WeOutputImpl;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
+import com.magneton.open.wx.api.processor.WeMsgProcessorImpl;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +37,10 @@ public class MsgDispatcherAutoConfiguration {
      * @return WeixinEnvironment
      */
     @Bean
-    public WeixinEnvironment weixinEnvironment(
+    public WeEnvironment weixinEnvironment(
         @Autowired(required = false) List<InvokerLifeCycle> invokerLifeCycles,
         @Autowired DispatcherWxProperties dispatcherWxProperties) {
-        return new HttpWeixinWeixinInvoker(invokerLifeCycles, dispatcherWxProperties);
+        return new HttpWeInvoker(invokerLifeCycles, dispatcherWxProperties);
     }
 
     @Bean
@@ -63,7 +63,7 @@ public class MsgDispatcherAutoConfiguration {
 //    }
 
     @Bean
-    public WxMsgProcessor msgProcessor(List<MsgHandler> handlers,
+    public WeMsgProcessor msgProcessor(List<MsgHandler> handlers,
                                        DispatcherWxProperties wxProperties) {
         WXBizMsgCrypt wxBizMsgCrypt = null;
         if (wxProperties.isLaws()) {
@@ -75,11 +75,11 @@ public class MsgDispatcherAutoConfiguration {
                 throw new RuntimeException(e);
             }
         }
-        return WxWxMsgProcessorImpl.builder()
+        return WeMsgProcessorImpl.builder()
                                    .config(wxProperties)
                                    .wxBizMsgCrypt(wxBizMsgCrypt)
-                                   .input(new WxInputImpl(handlers))
-                                   .output(new WxOutputImpl())
+                                   .input(new WeInputImpl(handlers))
+                                   .output(new WeOutputImpl())
                                    .build();
     }
 }

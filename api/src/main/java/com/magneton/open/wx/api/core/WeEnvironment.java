@@ -1,11 +1,13 @@
 package com.magneton.open.wx.api.core;
 
-import com.magneton.open.wx.api.ApiConfig;
-import com.magneton.open.wx.api.invoker.AccessTokenInvoker;
-import com.magneton.open.wx.api.invoker.CustomMessageInvoker;
+import com.magneton.open.wx.api.WeApiConfig;
+import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
+import com.magneton.open.wx.api.open.messagemanagement.CustomMessageInvoker;
 import com.magneton.open.wx.api.invoker.Invoker;
-import com.magneton.open.wx.api.invoker.MenuInvoker;
+import com.magneton.open.wx.api.open.custommenus.CustomMenuInvoker;
 import com.magneton.open.wx.api.invoker.UserInfoInvoker;
+import com.magneton.open.wx.api.open.accountmanagement.AccountManagementInvoker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +17,19 @@ import java.util.List;
  * @author zhangmingshuang
  * @since 2020/3/2
  */
-public interface WeixinEnvironment {
+public interface WeEnvironment {
 
-    ApiConfig getApiConfig();
+    WeApiConfig getWeApiConfig();
 
     AccessTokenInvoker getAccessTokenInvoker();
 
     CustomMessageInvoker getCustomMessageInvoker();
 
-    MenuInvoker getMenuInvoker();
+    CustomMenuInvoker getMenuInvoker();
 
     UserInfoInvoker getUserInvoker();
+
+    AccountManagementInvoker getAccountManagementInvoker();
 
     default List<Invoker> getInvokers() {
         List<Invoker> list = new ArrayList<>(4);
@@ -33,6 +37,7 @@ public interface WeixinEnvironment {
         list.add(getCustomMessageInvoker());
         list.add(getMenuInvoker());
         list.add(getUserInvoker());
+        list.add(getAccessTokenInvoker());
         return list;
     }
 }

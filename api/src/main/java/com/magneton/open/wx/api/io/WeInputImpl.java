@@ -1,9 +1,8 @@
 package com.magneton.open.wx.api.io;
 
-import com.magneton.open.wx.api.core.WxMsgConverException;
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
+import com.magneton.open.wx.api.core.WeMsgConverException;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
 import com.magneton.open.wx.api.entity.msg.WxMsg;
-import com.magneton.open.wx.api.handler.MsgParser;
 import com.magneton.open.wx.api.handler.HandlerException;
 import com.magneton.open.wx.api.handler.MsgCondition;
 import com.magneton.open.wx.api.handler.MsgConditions;
@@ -53,20 +52,20 @@ import org.slf4j.LoggerFactory;
  * @author zhangmingshuang
  * @since 2019/9/5
  */
-public class WxInputImpl implements WxInput {
+public class WeInputImpl implements WeInput {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WxInputImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeInputImpl.class);
 
     private final List<MsgHandlerWrapper> wrappers = new ArrayList<>();
-    private WxMsgProcessor dispatcher;
+    private WeMsgProcessor dispatcher;
     private WXBizMsgCrypt wxBizMsgCrypt;
 
-    public WxInputImpl(List<MsgHandler> handlers) {
+    public WeInputImpl(List<MsgHandler> handlers) {
         this.build(handlers);
     }
 
     @Override
-    public void afterDispatcherSet(WxMsgProcessor dispatcher) {
+    public void afterDispatcherSet(WeMsgProcessor dispatcher) {
         this.dispatcher = dispatcher;
         this.wxBizMsgCrypt = dispatcher.wxBizMsgCrypt();
     }
@@ -91,7 +90,7 @@ public class WxInputImpl implements WxInput {
             parse.put("nonce", nonce);
             return parse;
         } catch (Throwable e) {
-            throw new WxMsgConverException("[WxInput]解析微信公众号消息异常", e);
+            throw new WeMsgConverException("[WxInput]解析微信公众号消息异常", e);
         } finally {
             try {
                 inputStream.close();

@@ -8,7 +8,7 @@ import com.magneton.open.wx.api.invoker.Invoker;
  */
 public interface InvokerLifeCycle {
 
-    void beforeStart(WeixinEnvironment environment);
+    void beforeStart(WeEnvironment environment);
 
     void onStarting(Invoker invoker);
 

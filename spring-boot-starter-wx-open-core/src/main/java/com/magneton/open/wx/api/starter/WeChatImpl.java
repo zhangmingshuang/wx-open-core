@@ -1,22 +1,15 @@
 package com.magneton.open.wx.api.starter;
 
-import com.magneton.open.wx.api.ApiConfig;
-import com.magneton.open.wx.api.core.InvokerLifeCycle;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.WeApiConfig;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.event.EventProcessor;
-import com.magneton.open.wx.api.invoker.AccessTokenInvoker;
-import com.magneton.open.wx.api.invoker.CustomMessageInvoker;
-import com.magneton.open.wx.api.invoker.MenuInvoker;
+import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
+import com.magneton.open.wx.api.open.messagemanagement.CustomMessageInvoker;
+import com.magneton.open.wx.api.open.custommenus.CustomMenuInvoker;
 import com.magneton.open.wx.api.invoker.UserInfoInvoker;
-import com.magneton.open.wx.api.invoker.http.HttpWeixinWeixinInvoker;
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import lombok.Getter;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.SmartLifecycle;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,15 +21,15 @@ import org.springframework.stereotype.Component;
 public class WeChatImpl implements WeChat {
 
     @Autowired
-    private WeixinEnvironment weixinEnvironment;
+    private WeEnvironment weEnvironment;
     @Autowired
     private EventProcessor eventProcessor;
     @Autowired
-    private WxMsgProcessor wxMsgProcessor;
+    private WeMsgProcessor weMsgProcessor;
 
     @Override
-    public WxMsgProcessor getWxMsgProcessor() {
-        return wxMsgProcessor;
+    public WeMsgProcessor getWeMsgProcessor() {
+        return weMsgProcessor;
     }
 
     @Override
@@ -45,27 +38,27 @@ public class WeChatImpl implements WeChat {
     }
 
     @Override
-    public ApiConfig getApiConfig() {
-        return weixinEnvironment.getApiConfig();
+    public WeApiConfig getWeApiConfig() {
+        return weEnvironment.getWeApiConfig();
     }
 
     @Override
     public AccessTokenInvoker getAccessTokenInvoker() {
-        return weixinEnvironment.getAccessTokenInvoker();
+        return weEnvironment.getAccessTokenInvoker();
     }
 
     @Override
     public CustomMessageInvoker getCustomMessageInvoker() {
-        return weixinEnvironment.getCustomMessageInvoker();
+        return weEnvironment.getCustomMessageInvoker();
     }
 
     @Override
-    public MenuInvoker getMenuInvoker() {
-        return weixinEnvironment.getMenuInvoker();
+    public CustomMenuInvoker getMenuInvoker() {
+        return weEnvironment.getMenuInvoker();
     }
 
     @Override
     public UserInfoInvoker getUserInvoker() {
-        return weixinEnvironment.getUserInvoker();
+        return weEnvironment.getUserInvoker();
     }
 }

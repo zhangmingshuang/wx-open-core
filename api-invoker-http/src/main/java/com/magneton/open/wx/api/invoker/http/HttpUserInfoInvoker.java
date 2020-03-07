@@ -3,7 +3,7 @@ package com.magneton.open.wx.api.invoker.http;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.hash.Hashing;
 import com.magneton.open.wx.api.invoker.UserInfoInvoker;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.invoker.http.core.HttpRequest;
 import com.magneton.open.wx.api.invoker.http.core.HttpResponse;
 import com.magneton.open.wx.api.util.StringUtil;
@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 public class HttpUserInfoInvoker extends AbstractorHttpInvoker
     implements UserInfoInvoker {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpMenuInvoker.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpCustomMenuInvoker.class);
 
     /**
      * 获取微信公众号关注者的信息
@@ -40,7 +40,7 @@ public class HttpUserInfoInvoker extends AbstractorHttpInvoker
         = "https://api.weixin.qq.com/sns/userinfo?access_token={}&openid={}&lang=zh_CN";
 
 
-    public HttpUserInfoInvoker(WeixinEnvironment environment) {
+    public HttpUserInfoInvoker(WeEnvironment environment) {
         super(environment);
     }
 
@@ -52,7 +52,7 @@ public class HttpUserInfoInvoker extends AbstractorHttpInvoker
                            .toString();
         }
         String url = StringUtil.format(URL_WEB_AUTH,
-                                       getEnvironment().getApiConfig().getAppId(),
+                                       getEnvironment().getWeApiConfig().getAppId(),
                                        rediectUri,
                                        scope,
                                        state);
@@ -62,8 +62,8 @@ public class HttpUserInfoInvoker extends AbstractorHttpInvoker
     @Override
     public JSONObject webAuthAccessToken(String code) {
         String url = StringUtil.format(URL_WEB_AUTH_ACCESS_TOKEN,
-                                       getEnvironment().getApiConfig().getAppId(),
-                                       getEnvironment().getApiConfig().getAppSecret(),
+                                       getEnvironment().getWeApiConfig().getAppId(),
+                                       getEnvironment().getWeApiConfig().getAppSecret(),
                                        code);
         HttpResponse httpResponse = HttpRequest.doRequest(url);
         if (!httpResponse.isSuccess()) {

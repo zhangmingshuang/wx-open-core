@@ -46,7 +46,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class NewsMsgResponse extends AbstractMsg {
+public class NewsMsgReply extends AbstractMsg {
 
     private int articleCount = 1;
     private String title;
@@ -55,7 +55,7 @@ public class NewsMsgResponse extends AbstractMsg {
     private String url;
 
     @Override
-    public String toXml() {
+    public String getData() {
         return "<xml>" +
             "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
             "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +

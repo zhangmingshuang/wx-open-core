@@ -36,12 +36,12 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class ImageMsgResponse extends AbstractMsg {
+public class ImageMsgReply extends AbstractMsg {
 
     private String mediaId;
 
     @Override
-    public String toXml() {
+    public String getData() {
         return "<xml>" +
             "<ToUserName><![CDATA[" + getToUserName() + "]]></ToUserName>" +
             "<FromUserName><![CDATA[" + getFromUserName() + "]]></FromUserName>" +

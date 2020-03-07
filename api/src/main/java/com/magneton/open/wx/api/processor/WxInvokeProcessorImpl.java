@@ -1,9 +1,9 @@
 //package com.magneton.open.wx.api.processor;
 //
 //import com.magneton.open.wx.api.ApiConfig;
-//import com.magneton.open.wx.api.invoker.AccessTokenInvoker;
+//import com.magneton.open.wx.api.open.common.AccessTokenInvoker;
 //import com.magneton.open.wx.api.invoker.UserInfoInvoker;
-//import com.magneton.open.wx.api.invoker.MenuInvoker;
+//import com.magneton.open.wx.api.open.custommenus.MenuInvoker;
 //import lombok.Builder;
 //
 ///**

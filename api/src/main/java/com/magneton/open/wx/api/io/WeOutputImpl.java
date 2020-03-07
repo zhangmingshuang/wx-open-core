@@ -2,8 +2,8 @@ package com.magneton.open.wx.api.io;
 
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
-import com.magneton.open.wx.api.core.WxMsgConverException;
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
+import com.magneton.open.wx.api.core.WeMsgConverException;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
 import com.magneton.open.wx.api.entity.msg.WxMsg;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
@@ -16,15 +16,15 @@ import java.nio.charset.Charset;
  * @author zhangmingshuang
  * @since 2019/9/5
  */
-public class WxOutputImpl implements WxOutput {
+public class WeOutputImpl implements WeOutput {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WxOutputImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeOutputImpl.class);
 
-    private WxMsgProcessor dispatcher;
+    private WeMsgProcessor dispatcher;
     private WXBizMsgCrypt wxBizMsgCrypt;
 
     @Override
-    public void afterDispatcherSet(WxMsgProcessor dispatcher) {
+    public void afterDispatcherSet(WeMsgProcessor dispatcher) {
         this.dispatcher = dispatcher;
         this.wxBizMsgCrypt = dispatcher.wxBizMsgCrypt();
     }
@@ -41,7 +41,7 @@ public class WxOutputImpl implements WxOutput {
             return wxBizMsgCrypt.encryptMsg(
                 msg.toXml(), msg.getCreateTime(), msg.getNonce());
         } catch (AesException e) {
-            throw new WxMsgConverException("[WxOutput]加密微信公众号消息异常", e);
+            throw new WeMsgConverException("[WxOutput]加密微信公众号消息异常", e);
         }
     }
 

@@ -1,19 +1,21 @@
 package com.magneton.open.wx.api.invoker;
 
 import com.magneton.open.wx.api.core.InvokerLifeCycle;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.core.WeEnvironment;
+import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
+
 import java.util.List;
 
 /**
  * @author zhangmingshuang
  * @since 2020/3/2
  */
-public abstract class AbstractWeixinWeixinInvoker implements InvokerLifeCycle, WeixinEnvironment {
+public abstract class AbstractWeInvoker implements InvokerLifeCycle, WeEnvironment {
 
     private List<InvokerLifeCycle> invokerLifeCycles;
     private List<Invoker> invokers;
 
-    public AbstractWeixinWeixinInvoker(List<InvokerLifeCycle> invokerLifeCycles) {
+    public AbstractWeInvoker(List<InvokerLifeCycle> invokerLifeCycles) {
         this.invokerLifeCycles = invokerLifeCycles;
         this.init();
     }
@@ -32,7 +34,7 @@ public abstract class AbstractWeixinWeixinInvoker implements InvokerLifeCycle, W
     }
 
     @Override
-    public void beforeStart(WeixinEnvironment environment) {
+    public void beforeStart(WeEnvironment environment) {
         for (int i = 0, l = invokerLifeCycles.size(); i < l; i++) {
             InvokerLifeCycle invokerLifeCycle = invokerLifeCycles.get(i);
             invokerLifeCycle.beforeStart(environment);

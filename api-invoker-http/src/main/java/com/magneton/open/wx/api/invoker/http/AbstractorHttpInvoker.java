@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.invoker.http;
 
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import lombok.Getter;
 
 /**
@@ -10,9 +10,9 @@ import lombok.Getter;
 @Getter
 public abstract class AbstractorHttpInvoker {
 
-    private WeixinEnvironment environment;
+    private WeEnvironment environment;
 
-    public AbstractorHttpInvoker(WeixinEnvironment environment) {
+    public AbstractorHttpInvoker(WeEnvironment environment) {
         this.environment = environment;
     }
 

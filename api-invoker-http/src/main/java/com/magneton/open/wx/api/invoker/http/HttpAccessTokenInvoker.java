@@ -1,10 +1,10 @@
 package com.magneton.open.wx.api.invoker.http;
 
 import com.google.common.hash.Hashing;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.invoker.http.core.HttpResponse;
-import com.magneton.open.wx.api.entity.msg.AccessTicket;
-import com.magneton.open.wx.api.invoker.AccessTokenInvoker;
+import com.magneton.open.wx.api.open.basic.AccessTicketResponse;
+import com.magneton.open.wx.api.open.basic.AccessTokenInvoker;
 import com.magneton.open.wx.api.invoker.http.core.HttpRequest;
 import com.magneton.open.wx.api.util.StringUtil;
 import lombok.AllArgsConstructor;
@@ -22,25 +22,25 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2019/9/5
  */
 public class HttpAccessTokenInvoker extends AbstractorHttpInvoker
-    implements AccessTokenInvoker {
+        implements AccessTokenInvoker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccessTokenInvoker.class);
     private static final String URL_ACCESS_TOKEN
-        = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={}&secret={}";
+            = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={}&secret={}";
 
     private static final String WEB_AUTH_URL
-        = "https://open.weixin.qq.com/connect/oauth2/authorize" +
-        "?appid={}&redirect_uri={}&response_type=code&scope={}&state={}#wechat_redirect";
+            = "https://open.weixin.qq.com/connect/oauth2/authorize" +
+            "?appid={}&redirect_uri={}&response_type=code&scope={}&state={}#wechat_redirect";
 
     private static final String JS_SDK_TICKET
-        = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={}&type=jsapi";
+            = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={}&type=jsapi";
 
     private volatile AccessToken accessToken;
     private JsTicket jsTicket;
 
     private Lock lock = new ReentrantLock();
 
-    public HttpAccessTokenInvoker(WeixinEnvironment environment) {
+    public HttpAccessTokenInvoker(WeEnvironment environment) {
         super(environment);
     }
 
@@ -66,7 +66,7 @@ public class HttpAccessTokenInvoker extends AbstractorHttpInvoker
 
 
     @Override
-    public AccessTicket getJsSdkTicket(String url, String noncestr) {
+    public AccessTicketResponse getJsSdkTicket(String url, String noncestr) {
         String jsSdkTicket = this.readJsTicket();
         if (StringUtil.isEmpty(jsSdkTicket)) {
             return null;
@@ -75,30 +75,30 @@ public class HttpAccessTokenInvoker extends AbstractorHttpInvoker
         //生成签名参数
         StringBuilder builder = new StringBuilder();
         builder.append("jsapi_ticket=")
-               .append(jsSdkTicket)
-               .append("&noncestr=").append(noncestr)
-               .append("&timestamp=").append(timestamp)
-               .append("&url=").append(url);
+                .append(jsSdkTicket)
+                .append("&noncestr=").append(noncestr)
+                .append("&timestamp=").append(timestamp)
+                .append("&url=").append(url);
 
         String sign = Hashing.sha1()
-                             .hashString(builder.toString(), Charset.defaultCharset()).toString();
+                .hashString(builder.toString(), Charset.defaultCharset()).toString();
 
-        AccessTicket accessTicket = new AccessTicket();
-        accessTicket.setAppId(getEnvironment().getApiConfig().getAppId());
-        accessTicket.setTimestamp(timestamp);
-        accessTicket.setNonceStr(noncestr);
-        accessTicket.setSignature(sign);
-        return accessTicket;
+        AccessTicketResponse accessTicketResponse = new AccessTicketResponse();
+        accessTicketResponse.setAppId(getEnvironment().getWeApiConfig().getAppId());
+        accessTicketResponse.setTimestamp(timestamp);
+        accessTicketResponse.setNonceStr(noncestr);
+        accessTicketResponse.setSignature(sign);
+        return accessTicketResponse;
     }
 
     public String webAuthAccessTokenUrlBuild(String redirectUri, String scope) {
         //don't change this way.
         String url = StringUtil.format(WEB_AUTH_URL,
-                                       getEnvironment().getApiConfig().getAppId(),
-                                       URLEncoder.encode(redirectUri),
-                                       scope,
-                                       String.valueOf(System.currentTimeMillis()),
-                                       getEnvironment().getApiConfig().getAppSecret());
+                getEnvironment().getWeApiConfig().getAppId(),
+                URLEncoder.encode(redirectUri),
+                scope,
+                String.valueOf(System.currentTimeMillis()),
+                getEnvironment().getWeApiConfig().getAppSecret());
         return url;
     }
 
@@ -111,9 +111,9 @@ public class HttpAccessTokenInvoker extends AbstractorHttpInvoker
     public String getAccessToken() {
         //don't change this way.
         String url = StringUtil
-            .format(URL_ACCESS_TOKEN,
-                    getEnvironment().getApiConfig().getAppId(),
-                    getEnvironment().getApiConfig().getAppSecret());
+                .format(URL_ACCESS_TOKEN,
+                        getEnvironment().getWeApiConfig().getAppId(),
+                        getEnvironment().getWeApiConfig().getAppSecret());
         return this.read(url);
     }
 
@@ -124,7 +124,7 @@ public class HttpAccessTokenInvoker extends AbstractorHttpInvoker
 
     protected String readJsTicket() {
         if (this.jsTicket != null
-            && System.currentTimeMillis() < this.jsTicket.expireAt) {
+                && System.currentTimeMillis() < this.jsTicket.expireAt) {
             return this.jsTicket.cached;
         }
         String accessToken = this.getAccessToken();
@@ -151,13 +151,13 @@ public class HttpAccessTokenInvoker extends AbstractorHttpInvoker
 
     protected String read(String url) {
         if (this.accessToken != null
-            && System.currentTimeMillis() < this.accessToken.expireAt) {
+                && System.currentTimeMillis() < this.accessToken.expireAt) {
             return this.accessToken.cached;
         }
         lock.lock();
         try {
             if (this.accessToken != null
-                && System.currentTimeMillis() < this.accessToken.expireAt) {
+                    && System.currentTimeMillis() < this.accessToken.expireAt) {
                 return this.accessToken.cached;
             }
             HttpResponse result = HttpRequest.doRequest(url);

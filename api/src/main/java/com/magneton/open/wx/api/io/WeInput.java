@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.io;
 
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
 import com.magneton.open.wx.api.entity.msg.WxMsg;
 
 import java.io.InputStream;
@@ -13,9 +13,9 @@ import java.util.Map;
  * @author zhangmingshuang
  * @since 2019/9/5
  */
-public interface WxInput {
+public interface WeInput {
 
-    void afterDispatcherSet(WxMsgProcessor dispatcher);
+    void afterDispatcherSet(WeMsgProcessor dispatcher);
 
 
     /**

@@ -1,15 +1,15 @@
 package com.magneton.open.wx.api.io;
 
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
 import com.magneton.open.wx.api.entity.msg.WxMsg;
 
 /**
  * @author zhangmingshuang
  * @since 2019/9/5
  */
-public interface WxOutput {
+public interface WeOutput {
 
-    void afterDispatcherSet(WxMsgProcessor dispatcher);
+    void afterDispatcherSet(WeMsgProcessor dispatcher);
 
     String encryptSyncMsg(WxMsg msg);
 

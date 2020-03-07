@@ -2,8 +2,8 @@ package com.magneton.open.wx.api.invoker.http;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.magneton.open.wx.api.invoker.MenuInvoker;
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.open.custommenus.CustomMenuInvoker;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.invoker.http.core.HttpRequest;
 import com.magneton.open.wx.api.invoker.http.core.HttpResponse;
 import com.magneton.open.wx.api.invoker.http.core.RequestProxy;
@@ -20,10 +20,10 @@ import java.io.IOException;
  * @see https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Querying_Custom_Menus.html
  * @since 2019/9/6
  */
-public class HttpMenuInvoker extends AbstractorHttpInvoker
-    implements MenuInvoker {
+public class HttpCustomMenuInvoker extends AbstractorHttpInvoker
+    implements CustomMenuInvoker {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpMenuInvoker.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpCustomMenuInvoker.class);
 
     private static final String URL_MENU_QUERY
         = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token={}";
@@ -31,7 +31,7 @@ public class HttpMenuInvoker extends AbstractorHttpInvoker
     private static final String URL_MENU_CREATE
         = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={}";
 
-    public HttpMenuInvoker(WeixinEnvironment environment) {
+    public HttpCustomMenuInvoker(WeEnvironment environment) {
         super(environment);
     }
 

@@ -1,16 +1,16 @@
 package com.magneton.open.wx.api.starter;
 
-import com.magneton.open.wx.api.core.WeixinEnvironment;
+import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.event.EventProcessor;
-import com.magneton.open.wx.api.processor.WxMsgProcessor;
+import com.magneton.open.wx.api.processor.WeMsgProcessor;
 
 /**
  * @author zhangmingshuang
  * @since 2020/3/5
  */
-public interface WeChat extends WeixinEnvironment {
+public interface WeChat extends WeEnvironment {
 
-    WxMsgProcessor getWxMsgProcessor();
+    WeMsgProcessor getWeMsgProcessor();
 
     EventProcessor getEventProcessor();
 }
