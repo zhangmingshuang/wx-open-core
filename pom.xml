@@ -11,9 +11,9 @@
     <description>微信公众号开放平台核心支持模块</description>
 
     <modules>
-        <module>api</module>
-        <module>api-invoker-http</module>
-        <module>spring-boot-starter-wx-open-core</module>
+        <module>we-api</module>
+        <module>we-api-http</module>
+        <module>spring-boot-starter-we</module>
     </modules>
 
     <properties>
