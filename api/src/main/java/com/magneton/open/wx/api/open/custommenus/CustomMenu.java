@@ -1,7 +1,7 @@
 package com.magneton.open.wx.api.open.custommenus;
 
 import com.alibaba.fastjson.JSONObject;
-import com.magneton.open.wx.api.open.Invoker;
+import com.magneton.open.wx.api.open.We;
 
 /**
  * https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Creating_Custom-Defined_Menu.html
@@ -9,7 +9,7 @@ import com.magneton.open.wx.api.open.Invoker;
  * @author zhangmingshuang
  * @since 2019/9/6
  */
-public interface CustomMenu extends Invoker {
+public interface CustomMenu extends We {
 
     /**
      * 菜单查询

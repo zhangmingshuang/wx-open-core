@@ -1,7 +1,7 @@
 package com.magneton.open.wx.api.open.messagemanagement.event;
 
 import com.magneton.open.wx.api.msgprocessor.handler.WeMsgParser;
-import com.magneton.open.wx.api.open.BasicRequestMsg;
+import com.magneton.open.wx.api.core.BasicRequestMsg;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;

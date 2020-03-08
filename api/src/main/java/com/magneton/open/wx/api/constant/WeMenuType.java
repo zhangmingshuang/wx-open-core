@@ -7,7 +7,7 @@ package com.magneton.open.wx.api.constant;
  * @author zhangmingshuang
  * @since 2019/9/6
  */
-public enum MenuTypeEnum {
+public enum WeMenuType {
     /**
      * 点击推事件用户点击click类型按钮后，
      * 微信服务器会通过消息接口推送消息类型为event的结构给开发者
@@ -79,7 +79,7 @@ public enum MenuTypeEnum {
 
     private String description;
 
-    MenuTypeEnum(String description) {
+    WeMenuType(String description) {
         this.description = description;
     }
 

@@ -4,8 +4,11 @@ import com.magneton.open.wx.api.WeApiConfig;
 import com.magneton.open.wx.api.msgprocessor.WeMsgCrypt;
 import com.magneton.open.wx.api.open.basic.AccessToken;
 import com.magneton.open.wx.api.open.custommenus.CustomMenu;
-import com.magneton.open.wx.api.open.usermanagement.UserInformation;
+import com.magneton.open.wx.api.open.intelligentinterface.Ocr;
+import com.magneton.open.wx.api.open.oauth.PageAuthorization;
 import com.magneton.open.wx.api.open.accountmanagement.AccountManagement;
+import com.magneton.open.wx.api.open.usermanagement.UserInformation;
+import com.magneton.open.wx.api.open.usermanagement.UserTag;
 
 
 /**
@@ -22,9 +25,15 @@ public interface WeEnvironment {
 
     CustomMenu customMenu();
 
-    UserInformation userInfomation();
+    PageAuthorization pageAuthorization();
 
-    AccountManagement accountManagment();
+    AccountManagement accountManagement();
+
+    UserTag userTag();
+
+    UserInformation userInformation();
+
+    Ocr ocr();
 
     WeMsgCrypt weMsgCrypt();
 }

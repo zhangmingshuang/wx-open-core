@@ -1,6 +1,6 @@
 package com.magneton.open.wx.api.open.messagemanagement;
 
-import com.magneton.open.wx.api.open.Invoker;
+import com.magneton.open.wx.api.open.We;
 
 /**
  * 客服消息
@@ -33,6 +33,6 @@ import com.magneton.open.wx.api.open.Invoker;
  * @author zhangmingshuang
  * @since 2020/3/7
  */
-public interface ServiceCenterMessage extends Invoker {
+public interface ServiceCenterMessage extends We {
 
 }

@@ -8,11 +8,11 @@ import lombok.Getter;
  * @since 2020/3/1
  */
 @Getter
-public abstract class AbstractorHttpInvoker {
+public abstract class AbstractorHttpWe {
 
     private WeEnvironment environment;
 
-    public AbstractorHttpInvoker(WeEnvironment environment) {
+    public AbstractorHttpWe(WeEnvironment environment) {
         this.environment = environment;
     }
 

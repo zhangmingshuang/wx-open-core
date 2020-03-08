@@ -1,6 +1,8 @@
 package com.magneton.open.wx.api.open.messagemanagement.msg;
 
 import java.util.Map;
+
+import com.magneton.open.wx.api.core.AbstractRequestMsg;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

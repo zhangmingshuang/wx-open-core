@@ -11,7 +11,7 @@ import com.magneton.open.wx.api.util.StringUtil;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class HttpAccountManagement extends AbstractorHttpInvoker
+public class HttpAccountManagement extends AbstractorHttpWe
         implements AccountManagement {
 
     private static final String CREATE_TICKET = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={}";

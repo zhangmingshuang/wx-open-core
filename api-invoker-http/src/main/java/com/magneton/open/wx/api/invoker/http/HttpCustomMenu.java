@@ -20,7 +20,7 @@ import java.io.IOException;
  * @see https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Querying_Custom_Menus.html
  * @since 2019/9/6
  */
-public class HttpCustomMenu extends AbstractorHttpInvoker
+public class HttpCustomMenu extends AbstractorHttpWe
     implements CustomMenu {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpCustomMenu.class);

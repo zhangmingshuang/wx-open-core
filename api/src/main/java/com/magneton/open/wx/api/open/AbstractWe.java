@@ -11,14 +11,14 @@ import java.util.List;
  * @author zhangmingshuang
  * @since 2020/3/2
  */
-public abstract class AbstractWeInvoker implements InvokerLifeCycle, WeEnvironment {
+public abstract class AbstractWe implements InvokerLifeCycle, WeEnvironment {
 
     private List<InvokerLifeCycle> invokerLifeCycles;
-    private List<Invoker> invokers;
+    private List<We> wes;
     private WeMsgCrypt weMsgCrypt;
 
-    public AbstractWeInvoker(List<InvokerLifeCycle> invokerLifeCycles,
-                             WeMsgCrypt weMsgCrypt) {
+    public AbstractWe(List<InvokerLifeCycle> invokerLifeCycles,
+                      WeMsgCrypt weMsgCrypt) {
         this.invokerLifeCycles = invokerLifeCycles;
         this.weMsgCrypt = weMsgCrypt;
         this.init();

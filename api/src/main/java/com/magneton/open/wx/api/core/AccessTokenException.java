@@ -1,4 +1,4 @@
-package com.magneton.open.wx.api.invoker.http;
+package com.magneton.open.wx.api.core;
 
 /**
  * @author zhangmingshuang

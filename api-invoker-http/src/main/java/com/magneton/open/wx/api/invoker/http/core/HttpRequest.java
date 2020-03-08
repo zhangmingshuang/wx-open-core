@@ -20,7 +20,7 @@ public class HttpRequest {
 
     }
 
-    public static HttpResponse doJsonRequest(String url, Object data){
+    public static HttpResponse doJsonRequest(String url, Object data) {
         return doRequest(url, JSON.toJSONString(data));
     }
 
@@ -51,7 +51,7 @@ public class HttpRequest {
             //请求失败
             String errorMsg = WeResponseCode.getError(error.intValue());
             LOGGER.error("[wx]请求失败。code:[{}], msg:[{}], response:[{}]",
-                         error, errorMsg, response);
+                    error, errorMsg, response);
             object.setHasErrorCode(true);
         }
         return object;

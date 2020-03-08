@@ -1,4 +1,4 @@
-package com.magneton.open.wx.api.open;
+package com.magneton.open.wx.api.core;
 
 import com.magneton.open.wx.api.util.StringUtil;
 import java.util.Map;

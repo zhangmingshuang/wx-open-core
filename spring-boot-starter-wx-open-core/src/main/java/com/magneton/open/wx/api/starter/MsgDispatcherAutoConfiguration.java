@@ -8,7 +8,7 @@ import com.magneton.open.wx.api.msgprocessor.WeInput;
 import com.magneton.open.wx.api.msgprocessor.WeOutput;
 import com.magneton.open.wx.api.msgprocessor.handler.WeMsgHandler;
 import com.magneton.open.wx.api.core.WeEnvironment;
-import com.magneton.open.wx.api.invoker.http.HttpWeInvoker;
+import com.magneton.open.wx.api.invoker.http.HttpWe;
 import com.magneton.open.wx.api.msgprocessor.WeInputImpl;
 import com.magneton.open.wx.api.msgprocessor.WeMsgCrypt;
 import com.magneton.open.wx.api.msgprocessor.WeOutputImpl;
@@ -57,7 +57,7 @@ public class MsgDispatcherAutoConfiguration {
             }
         }
 
-        return new HttpWeInvoker(invokerLifeCycles, dispatcherWxProperties, weMsgCrypt);
+        return new HttpWe(invokerLifeCycles, dispatcherWxProperties, weMsgCrypt);
 
     }
 

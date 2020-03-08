@@ -1,10 +1,10 @@
-package com.magneton.open.wx.api.open;
+package com.magneton.open.wx.api.constant;
 
 /**
  * @author zhangmingshuang
  * @since 2020/3/5
  */
-public interface MsgType {
+public interface WeMsgType {
 
     String EVENT = "event";
     /**

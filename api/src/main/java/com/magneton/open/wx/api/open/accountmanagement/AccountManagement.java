@@ -1,8 +1,8 @@
 package com.magneton.open.wx.api.open.accountmanagement;
 
-import com.magneton.open.wx.api.open.Invoker;
+import com.magneton.open.wx.api.open.We;
 
-public interface AccountManagement extends Invoker {
+public interface AccountManagement extends We {
 
     /**
      * 通过ticket换取二维码

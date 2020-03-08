@@ -1,12 +1,12 @@
 package com.magneton.open.wx.api.open.basic;
 
-import com.magneton.open.wx.api.open.Invoker;
+import com.magneton.open.wx.api.open.We;
 
 /**
  * @author zhangmingshuang
  * @since 2019/9/5
  */
-public interface AccessToken extends Invoker {
+public interface AccessToken extends We {
 
 
     String getAccessToken();

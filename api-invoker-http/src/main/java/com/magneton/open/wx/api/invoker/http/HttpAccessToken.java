@@ -1,6 +1,7 @@
 package com.magneton.open.wx.api.invoker.http;
 
 import com.google.common.hash.Hashing;
+import com.magneton.open.wx.api.core.AccessTokenException;
 import com.magneton.open.wx.api.core.WeEnvironment;
 import com.magneton.open.wx.api.invoker.http.core.HttpResponse;
 import com.magneton.open.wx.api.open.basic.AccessTicketResponse;
@@ -21,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author zhangmingshuang
  * @since 2019/9/5
  */
-public class HttpAccessToken extends AbstractorHttpInvoker
+public class HttpAccessToken extends AbstractorHttpWe
     implements AccessToken {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(com.magneton.open.wx.api.open.basic.AccessToken.class);
