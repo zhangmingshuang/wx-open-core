@@ -15,21 +15,22 @@ import java.io.IOException;
 
 /**
  * 菜单操作
+ * <p>
+ * https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Querying_Custom_Menus.html
  *
  * @author zhangmingshuang
- * @see https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Querying_Custom_Menus.html
  * @since 2019/9/6
  */
 public class HttpCustomMenu extends AbstractorHttpWe
-    implements CustomMenu {
+        implements CustomMenu {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpCustomMenu.class);
+    private static final String MENU_INFO
+            = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token={}";
 
-    private static final String URL_MENU_QUERY
-        = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token={}";
+    private static final String CREATE
+            = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={}";
 
-    private static final String URL_MENU_CREATE
-        = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={}";
+    private static final String DELETE = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={}";
 
     public HttpCustomMenu(WeEnvironment environment) {
         super(environment);
@@ -59,9 +60,7 @@ public class HttpCustomMenu extends AbstractorHttpWe
     @Override
     public JSONObject query() {
         String accessToken = getWeEnvironment().accessToken().getAccessToken();
-
-        String url = StringUtil.format(URL_MENU_QUERY, accessToken);
-
+        String url = StringUtil.format(MENU_INFO, accessToken);
         HttpResponse result = HttpRequest.doRequest(url);
         if (!result.isSuccess()) {
             return null;
@@ -72,11 +71,17 @@ public class HttpCustomMenu extends AbstractorHttpWe
     @Override
     public boolean create(String menu) {
         String accessToken = getWeEnvironment().accessToken().getAccessToken();
-
-        String url = StringUtil.format(URL_MENU_CREATE, accessToken);
+        String url = StringUtil.format(CREATE, accessToken);
         return this.doCreate(url, menu);
     }
 
+    @Override
+    public boolean delete() {
+        String accessToken = getWeEnvironment().accessToken().getAccessToken();
+        String url = StringUtil.format(DELETE, accessToken);
+        HttpResponse result = HttpRequest.doRequest(url);
+        return result.isSuccess();
+    }
 
     /**
      * 创建菜单
@@ -98,22 +103,11 @@ public class HttpCustomMenu extends AbstractorHttpWe
      * @return 是否创建成功
      */
     protected boolean doCreate(String url, String menu) {
-
-        try {
-            //todo monitor
-            String response = RequestProxy.doPost(url, menu);
-            JSONObject json = JSON.parseObject(response);
-            Integer errcode = json.getInteger("errcode");
-
-            if (errcode != null && errcode.intValue() != 0) {
-                LOGGER.info("[weixin]doCreate fail. {}", response);
-                return false;
-            }
-            return true;
-        } catch (IOException e) {
-            LOGGER.error("[wx]请求" + url.substring(0, url.indexOf('?')) + "异常", e);
+        HttpResponse result = HttpRequest.doRequest(url, menu);
+        if (!result.isSuccess()) {
+            return false;
         }
-        return false;
+        return true;
     }
 
 

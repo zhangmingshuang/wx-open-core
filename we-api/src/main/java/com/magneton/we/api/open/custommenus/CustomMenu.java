@@ -26,4 +26,14 @@ public interface CustomMenu extends We {
      * @return 是否创建成功
      */
     boolean create(String menu);
+
+    /**
+     * 删除菜单
+     * <p>
+     * 使用接口创建自定义菜单后，开发者还可使用接口删除当前使用的自定义菜单。
+     * 另请注意，在个性化菜单时，调用此接口会删除默认菜单及全部个性化菜单。
+     *
+     * @return
+     */
+    boolean delete();
 }
