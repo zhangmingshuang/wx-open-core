@@ -5,7 +5,7 @@ import com.magneton.we.api.open.We;
 public interface AccountManagement extends We {
 
     /**
-     * 通过ticket换取二维码
+     * 1. 通过ticket换取二维码
      * <p>
      * 获取二维码ticket后，开发者可用ticket换取二维码图片。请注意，本接口无须登录态即可调用。
      * <p>
@@ -25,7 +25,7 @@ public interface AccountManagement extends We {
     QrCodeTicketResponse createTicket(QrCodeTicketRequest request);
 
     /**
-     * 获取二维码图片地址
+     * 2. 获取二维码图片地址
      * https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=TICKET
      *
      * @param response
